@@ -1,0 +1,16 @@
+/* Estilos para el contenedor ovalado */
+.oval-container {
+    
+    width: 100px; /* Ajusta el tamaño del contenedor ovalado */
+    height: 100px; /* Ajusta el tamaño del contenedor ovalado */
+    border-radius: 50%; /* Hace que el contenedor tenga una forma ovalada */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+    align-items: center; /* Centra la imagen verticalmente */
+    justify-content: center; /* Centra la imagen horizontalmente */
+    background-color: black; /* Fondo blanco (opcional) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+    
+  }
+  
+
+  
