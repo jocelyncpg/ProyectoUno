@@ -39,14 +39,15 @@
             minlength="5"
             #passwordInput="ngModel"
             [ngClass]="{'invalid': passwordError}"
+            (ngModelChange)="passwordError = password.length < 5"
           ></ion-input>
         </ion-item>
         <ion-item *ngIf="passwordError">
           <ion-label color="danger">La contraseña debe tener al menos 5 caracteres.</ion-label>
         </ion-item>
       </ion-list>
+      <ion-button expand="center" color="orange" type="submit">ENTRAR</ion-button>
       <ion-button expand="center" color="orange" routerLink="/recuperar">RECUPERAR CUENTA</ion-button>
-      <ion-button expand="center" color="orange" routerLink="/login">ENTRAR</ion-button>
     </form>
   </div>
 </ion-content>
