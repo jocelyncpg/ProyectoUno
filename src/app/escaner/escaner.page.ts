@@ -1,4 +1,3 @@
-// src/app/escaner/escaner.page.ts
 import { Component, OnInit } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
@@ -15,23 +14,41 @@ export class EscanerPage implements OnInit {
 
   ngOnInit() {
     if (Capacitor.isNativePlatform()) {
-      // Código para plataformas móviles
       console.log('Estamos en un dispositivo móvil');
     } else {
       console.log('Esta función solo está disponible en plataformas móviles');
     }
   }
 
+  async checkPermissions(): Promise<boolean> {
+    const status = await BarcodeScanner.checkPermission({ force: true });
+  
+    if (status.granted) {
+      return true;
+    } else if (status.denied) {
+      alert('Permisos de cámara denegados. Habilítalos en la configuración.');
+      return false;
+    } else {
+      alert('Permisos de cámara no otorgados.');
+      return false;
+    }
+  }
+
   async startScan() {
     if (Capacitor.isNativePlatform()) {
+      const hasPermission = await this.checkPermissions();
+      if (!hasPermission) {
+        return;
+      }
+
       try {
-        this.scanActive = true; // Activar el estado de escaneo
+        this.scanActive = true;
         const result = await BarcodeScanner.startScan();
         console.log(result);
-        this.stopScan(); // Detener el escaneo cuando se obtiene un resultado
+        this.stopScan();
       } catch (error) {
         console.error('Error al escanear:', error);
-        this.scanActive = false; // Detener el estado de escaneo en caso de error
+        this.scanActive = false;
       }
     } else {
       console.log('Esta función solo está disponible en plataformas móviles');
@@ -42,12 +59,16 @@ export class EscanerPage implements OnInit {
     if (Capacitor.isNativePlatform() && this.scanActive) {
       try {
         await BarcodeScanner.stopScan();
-        this.scanActive = false; // Detener el estado de escaneo
+        this.scanActive = false;
       } catch (error) {
         console.error('Error al detener el escaneo:', error);
       }
     } else {
       console.log('Esta función solo está disponible en plataformas móviles');
     }
+  }
+
+  ionViewWillLeave() {
+    this.stopScan(); // Detener escaneo al salir de la página
   }
 }

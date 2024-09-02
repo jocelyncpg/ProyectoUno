@@ -16,6 +16,9 @@
       <!-- Contenido relacionado con la cámara se mostrará aquí -->
     </div>
   </div>
+  <ion-button (click)="startScan()">Iniciar Escaneo</ion-button>
+
+  
   <br><br>
   <ion-button expand="center" color="orange" (click)="startScan()">Scanning</ion-button>
   <ion-button expand="center" color="orange" (click)="stopScan()" *ngIf="scanActive">Stop Scan</ion-button>
