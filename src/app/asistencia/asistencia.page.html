@@ -1,13 +1,38 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Asistencia</ion-title>
+    <ion-title>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/512/3175/3175622.png" alt="University Logo" class="university-logo" />
+        <span class="page-title">RegistrAPP</span>
+      </div>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">recuperar</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content padding>
+  <h2>Programación Móvil</h2>
+
+  <ion-list>
+    <ion-item *ngFor="let asistencia of asistencias">
+      <ion-label>
+        <h2>Fecha: {{ asistencia.fecha }}</h2>
+        <p>Hora: {{ asistencia.hora }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+<br><br>
+  <ion-button expand="center" color="orange" routerLink="/home">Inicio</ion-button>
+  <ion-button expand="center" color="orange" routerLink="/escaner">Volver</ion-button>
+
 </ion-content>
+
+
+
+
+
+<ion-footer>
+  <div class="uni">
+    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>

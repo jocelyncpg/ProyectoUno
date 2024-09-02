@@ -1,13 +1,35 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>recuperar</ion-title>
+    <ion-title>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/512/3175/3175622.png" alt="University Logo" class="university-logo" />
+        <span class="page-title">Bienvenido</span>
+      </div>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">recuperar</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content padding>
+  <form (ngSubmit)="resetPassword()">
+    <ion-item>
+      <ion-label position="floating">Correo electrónico</ion-label>
+      <ion-input type="email" [(ngModel)]="username" name="username" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="usernameError">
+      <ion-label color="danger">Por favor, ingrese un correo electrónico válido.</ion-label>
+    </ion-item>
+
+    <ion-button expand="center" color="orange" type="submit">Recuperar contraseña</ion-button>
+    <ion-button expand="center" color="orange" routerLink="/home">VOLVER</ion-button>
+
+  </form>
+
 </ion-content>
+
+
+
+<ion-footer>
+  <div class="uni">
+    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>
