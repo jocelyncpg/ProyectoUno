@@ -12,9 +12,14 @@
     
   }
 
-  .square{
+  .square {
     height: 50px;
     width: 200px;
     background: rgb(161, 77, 221);
     margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    font-weight: bold;
   }

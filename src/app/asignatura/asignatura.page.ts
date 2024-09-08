@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ export class AsignaturaPage implements OnInit {
 
   asignaturaSelected: string =  '';
 
-  constructor(private alertController: AlertController, private router: Router) { }
+  constructor(private alertController: AlertController, private router: Router, private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.asignaturas = [
@@ -24,6 +24,11 @@ export class AsignaturaPage implements OnInit {
     ]
   }
 
+  ngAfterViewInit() {
+    const img = this.elementRef.nativeElement.querySelector('.img-dev');
+    img.classList.add('animate');
+  }
+  
   async test(asignatura: string) {
     this.asignaturaSelected = asignatura;
     this.router.navigate(['/asistencia'], { queryParams: { asignaturaSelected: this.asignaturaSelected } });

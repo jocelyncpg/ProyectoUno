@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
+import { Animation, AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-escaner',
   templateUrl: './escaner.page.html',
   styleUrls: ['./escaner.page.scss'],
 })
-export class EscanerPage implements OnInit {
+export class EscanerPage implements OnInit, AfterViewInit {
   scanActive: boolean = false;
+  animation: Animation | null = null;
 
-  constructor(private AlertController: AlertController) {}
+  constructor(private AlertController: AlertController, private animationCtrl: AnimationController) {}
 
   ngOnInit() {
     if (Capacitor.isNativePlatform()) {
@@ -19,6 +21,14 @@ export class EscanerPage implements OnInit {
     } else {
       console.log('Esta función solo está disponible en plataformas móviles');
     }
+  }
+
+  ngAfterViewInit() {
+    this.animation = this.animationCtrl.create()
+      .addElement(document.querySelector('.qr-hand') as HTMLElement)
+      .duration(10000) // Duración 10 segundos de la animación (está en milisegundos)
+      .iterations(Infinity)
+      .fromTo('transform', 'rotate(0deg)', 'rotate(360deg)'); // Rotar la imagen 360 grados
   }
 
   async checkPermissions(): Promise<boolean> {
@@ -78,4 +88,9 @@ export class EscanerPage implements OnInit {
   ionViewWillLeave() {
     this.stopScan(); // Detener escaneo al salir de la página
   }
+
+  ionViewWillEnter() {
+    this.animation?.play(); // Reproducir animación al entrar en la página
+  }
+  
 }

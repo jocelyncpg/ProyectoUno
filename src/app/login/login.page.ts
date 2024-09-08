@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
   ngAfterViewInit() {
     this.animation = this.aCtrl.create()
       .addElement(document.querySelector('.square') as HTMLElement)
-      .duration(2000)
+      .duration(1500)
       .iterations(Infinity)
       .keyframes([
         { offset: 0, background: 'red', transform: 'translateX(-150px)' },
