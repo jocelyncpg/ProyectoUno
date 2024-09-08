@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-escaner',
@@ -10,7 +11,7 @@ import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 export class EscanerPage implements OnInit {
   scanActive: boolean = false;
 
-  constructor() {}
+  constructor(private AlertController: AlertController) {}
 
   ngOnInit() {
     if (Capacitor.isNativePlatform()) {
@@ -51,7 +52,13 @@ export class EscanerPage implements OnInit {
         this.scanActive = false;
       }
     } else {
-      console.log('Esta función solo está disponible en plataformas móviles');
+      const alert = await this.AlertController.create({
+        header: "No se detecta camara",
+        message: "Asegurate que estas en una plataforma nativa (Android/IOS)",
+        buttons: ['Ok']
+      })
+
+      await alert.present();
     }
   }
 

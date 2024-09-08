@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'recuperar',
     loadChildren: () => import('./recuperar/recuperar.module').then( m => m.RecuperarPageModule)
+  },  {
+    path: 'asignatura',
+    loadChildren: () => import('./asignatura/asignatura.module').then( m => m.AsignaturaPageModule)
   },
+
 ];
 
 @NgModule({

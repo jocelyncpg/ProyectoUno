@@ -34,7 +34,24 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+
+:root {
+  --ion-color-purple: #8027df;
+  --ion-color-purple-rgb: 255, 215, 0;
+  --ion-color-purple-contrast: #ffffff;
+  --ion-color-purple-contrast-rgb: 0, 0, 0;
+  --ion-color-purple-shade: #5e1ea1;
+  --ion-color-purple-tint: #8027df;
+}
+
+.ion-color-purple {
+  --ion-color-base: var(--ion-color-purple) !important;
+  --ion-color-base-rgb: var(--ion-color-purple-rgb) !important;
+  --ion-color-contrast: var(--ion-color-purple-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-purple-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-purple-shade) !important;
+  --ion-color-tint: var(--ion-color-purple-tint) !important;
+}
 
 body {
     background-color: #000000;
@@ -42,16 +59,10 @@ body {
   }
   
   ion-content {
-    --background: #000000;
     color: #ffffff;
   }
   
-  ion-button {
-    background-color: #8027df; /* Color de los botones */
-    --color: #ffffff; /* Color del texto dentro del botón */
-  }
-  
-  ion-header, ion-footer {
+  ion-footer {
     background-color: #8027df;
     color: white; /* Esto hará que el texto dentro del header y footer sea blanco */
   }
@@ -69,20 +80,16 @@ body {
           align-items: center;
           justify-content: center;
           width: 100%;
-          background-color: #8027df;
           color:white;
         }
           
           .university-logo {
             height: 40px; 
             margin-right: 8px; 
-            background-color: #8027df;
-
           }
           .logo {
             height: 20px; 
             margin-right: 4px; 
-            background-color: #8027df;
             width: 100vw; 
             left: 0; 
             right: 0; 
@@ -92,7 +99,8 @@ body {
             text-align: center;
             font-size: 20px; 
             font-weight: bold;
-            background-color: #8027df;
+            text-shadow: 2px 0 #8027df, -2px 0 #8027df, 0 2px #8027df, 0 -2px #8027df,
+             1px 1px #8027df, -1px -1px #8027df, 1px -1px #8027df, -1px 1px #8027df;
           }
         }
       }
@@ -104,7 +112,8 @@ body {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 100%;}
+          width: 100%;
+        }
           
           .duoc-logo {
             height: 20px; 
@@ -136,11 +145,10 @@ body {
 
 
 form {
-  background-color: black; 
   border-radius: 10px; 
   padding-top: 35%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
- color: white;
+  padding-bottom: 15%;
+  color: white;
 }
 
 .ion-label{

@@ -16,20 +16,18 @@
        {{ username }}</ion-label>
     <br><br><br>
     
-    <ion-button expand="center" color="orange" routerLink="/escaner">Registrar Asistencia</ion-button>
+    <ion-button expand="center" color="purple" routerLink="/escaner">Registrar Asistencia</ion-button>
   
-    <ion-button expand="center" color="orange" routerLink="/home">Inicio</ion-button>
+    <ion-button expand="center" color="danger" routerLink="/home">Cerrar Sesion</ion-button>
     <br><br>
 
-    <br><br><br>
-    <br><br><br>
     <br><br><br>
     <div class="square"> DUOC-UC 
       <br> {{ username }}</div>
     <br><br>
-    <ion-button color="orange" (click)="activar()">Ejecutar</ion-button>
-    <ion-button color="orange" (click)="pausar()"> Pausar </ion-button>
-    <ion-button color="orange" (click)="detener()">Parar</ion-button>
+    <ion-button color="purple" (click)="activar()"><ion-icon name="play-outline"></ion-icon></ion-button>
+    <ion-button color="purple" (click)="pausar()"><ion-icon name="pause-outline"></ion-icon></ion-button>
+    <ion-button color="purple" (click)="detener()"><ion-icon name="stop-outline"></ion-icon></ion-button>
 
   
 </ion-content>
@@ -39,6 +37,6 @@
 
 <ion-footer>
   <div class="uni">
-    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>

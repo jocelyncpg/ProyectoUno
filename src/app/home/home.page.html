@@ -14,8 +14,11 @@
     <form (ngSubmit)="home()" #loginForm="ngForm">
       <ion-list>
         <ion-item>
-          <ion-label position="floating">USUARIO</ion-label>
           <ion-input
+            label="Correo electrónico"
+            label-placement="floating"
+            fill="solid" 
+            placeholder="usuario@mail.com"
             type="email"
             [(ngModel)]="username"
             name="username"
@@ -30,8 +33,11 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">CONTRASEÑA</ion-label>
           <ion-input
+            label="Contraseña"
+            label-placement="floating"
+            fill="solid" 
+            placeholder="Minimo 5 caracteres"
             type="password"
             [(ngModel)]="password"
             name="password"
@@ -46,8 +52,8 @@
           <ion-label color="danger">La contraseña debe tener al menos 5 caracteres.</ion-label>
         </ion-item>
       </ion-list>
-      <ion-button expand="center" color="orange" type="submit">ENTRAR</ion-button>
-      <ion-button expand="center" color="orange" routerLink="/recuperar">RECUPERAR CUENTA</ion-button>
+      <ion-button color="purple" expand="center" type="submit">ENTRAR</ion-button>
+      <ion-button color="purple" expand="center" routerLink="/recuperar">RECUPERAR CUENTA</ion-button>
     </form>
   </div>
 
@@ -56,6 +62,6 @@
 
 <ion-footer>
   <div class="uni">
-    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>

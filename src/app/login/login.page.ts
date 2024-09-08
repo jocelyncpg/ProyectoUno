@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Animation, AnimationController } from '@ionic/angular';
+import { StorageService } from '../storage.service'; 
 
 @Component({
   selector: 'app-login',
@@ -16,15 +17,28 @@ export class LoginPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private aCtrl: AnimationController
+    private aCtrl: AnimationController,
+    private storageService: StorageService
   ) {}
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.username = params['username'] || 'Usuario';
-    });
+  async ionViewWillEnter() {
+    const storedUsername = await this.storageService.get('username');
+    
+    if (storedUsername) {
+      console.log('LocalStorage')
+      this.username = storedUsername;
+    }else{
+      console.log('Params')
+      this.route.queryParams.subscribe(params => {
+        this.username = params['username'] || 'Usuario';
+      });
+    }
+    
   }
 
+  ngOnInit() {
+  }
+  
   ngAfterViewInit() {
     this.animation = this.aCtrl.create()
       .addElement(document.querySelector('.square') as HTMLElement)

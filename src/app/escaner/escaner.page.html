@@ -16,18 +16,22 @@
       <!-- Contenido relacionado con la cámara se mostrará aquí -->
     </div>
   </div>
-  <ion-button (click)="startScan()">Iniciar Escaneo</ion-button>
+  <!--
+    <ion-button (click)="startScan()">Iniciar Escaneo</ion-button>
+    NO LO VAMOS A USAR DE MOMENTO !!!!!
+  -->
 
   
   <br><br>
-  <ion-button expand="center" color="orange" (click)="startScan()">Scanning</ion-button>
-  <ion-button expand="center" color="orange" (click)="stopScan()" *ngIf="scanActive">Stop Scan</ion-button>
-  <ion-button expand="center" color="orange" routerLink="/asistencia">Ver mi asistencia</ion-button>
+  <ion-button expand="center" color="purple" (click)="startScan()">Scanning</ion-button>
+  <ion-button expand="center" color="purple" (click)="stopScan()" *ngIf="scanActive">Stop Scan</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/asignatura">Ver asignaturas</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/login">Volver</ion-button>
 
 </ion-content>
 
 <ion-footer>
   <div class="uni">
-    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>

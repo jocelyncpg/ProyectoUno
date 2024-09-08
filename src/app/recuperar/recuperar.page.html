@@ -12,15 +12,22 @@
 <ion-content padding>
   <form (ngSubmit)="resetPassword()">
     <ion-item>
-      <ion-label position="floating">Correo electrónico</ion-label>
-      <ion-input type="email" [(ngModel)]="username" name="username" required></ion-input>
+      <ion-input 
+        label="Correo electrónico"
+        label-placement="floating"
+        fill="solid" 
+        placeholder="usuario@mail.com"
+        type="email" 
+        [(ngModel)]="username" 
+        name="username" 
+        required></ion-input>
     </ion-item>
     <ion-item *ngIf="usernameError">
       <ion-label color="danger">Por favor, ingrese un correo electrónico válido.</ion-label>
     </ion-item>
 
-    <ion-button expand="center" color="orange" type="submit">Recuperar contraseña</ion-button>
-    <ion-button expand="center" color="orange" routerLink="/home">VOLVER</ion-button>
+    <ion-button color="purple" type="submit">RECUPERAR CONTRASEÑA</ion-button>
+    <ion-button color="purple" routerLink="/home">VOLVER</ion-button>
 
   </form>
 
@@ -30,6 +37,6 @@
 
 <ion-footer>
   <div class="uni">
-    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>

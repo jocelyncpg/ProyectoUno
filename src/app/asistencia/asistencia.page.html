@@ -11,19 +11,21 @@
 
 
 <ion-content padding>
-  <h2>Programación Móvil</h2>
+  <h2>{{ asignaturaSelected }}</h2>
 
   <ion-list>
-    <ion-item *ngFor="let asistencia of asistencias">
-      <ion-label>
-        <h2>Fecha: {{ asistencia.fecha }}</h2>
-        <p>Hora: {{ asistencia.hora }}</p>
-      </ion-label>
-    </ion-item>
+    <ng-container *ngFor="let asistencia of asistencias">
+      <ion-item *ngIf="asistencia.asignatura == this.asignaturaSelected">
+        <ion-label>
+          <h2>Fecha: {{ asistencia.fecha }}</h2>
+          <p>Hora: {{ asistencia.hora }}</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
   </ion-list>
-<br><br>
-  <ion-button expand="center" color="orange" routerLink="/home">Inicio</ion-button>
-  <ion-button expand="center" color="orange" routerLink="/escaner">Volver</ion-button>
+  <br><br>
+  <ion-button expand="center" color="purple" routerLink="/home">Inicio</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/asignatura">Volver</ion-button>
 
 </ion-content>
 
@@ -33,6 +35,6 @@
 
 <ion-footer>
   <div class="uni">
-    <img src="https://www2.duoc.cl/proveedores/img/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>

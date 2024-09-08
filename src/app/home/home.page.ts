@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage.service'; 
+
 
 @Component({
   selector: 'app-home',
@@ -12,13 +14,16 @@ export class HomePage {
   usernameError: boolean = false;
   passwordError: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private storageService: StorageService) {}
 
-  home() {
+  async home() {
     this.usernameError = !this.validateEmail(this.username);
     this.passwordError = this.password.length < 5;
 
     if (!this.usernameError && !this.passwordError) {
+      await this.storageService.set('username', this.username);
+      this.storageService.get('username')
+      .then( res => console.log(res));
       this.router.navigate(['/login'], { queryParams: { username: this.username } });
     }
   }
