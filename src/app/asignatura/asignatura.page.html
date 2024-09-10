@@ -14,8 +14,8 @@
   <h2>asignatura</h2>
 
   <ion-list>
-    <ion-item *ngFor="let asignatura of asignaturas">
-      <ion-label (click)="test(asignatura.nombre)">
+    <ion-item *ngFor="let asignatura of asignaturas" button (click)="test(asignatura.nombre)">
+      <ion-label>
         <h2>{{ asignatura.nombre }}</h2>
         <p>profesor: {{ asignatura.profesor }}</p>
       </ion-label>

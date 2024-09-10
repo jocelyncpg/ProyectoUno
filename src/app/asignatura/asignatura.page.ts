@@ -24,6 +24,16 @@ export class AsignaturaPage implements OnInit {
     ]
   }
 
+  ionViewWillEnter() {
+    // Aquí puedes forzar la actualización del estado o hacer cualquier inicialización necesaria
+    this.resetRippleEffect();
+  }
+
+  resetRippleEffect() {
+    // Reemplaza el contenido de la lista para forzar el re-render
+    this.asignaturas = [...this.asignaturas];
+  }
+
   ngAfterViewInit() {
     const img = this.elementRef.nativeElement.querySelector('.img-dev');
     img.classList.add('animate');
@@ -33,5 +43,4 @@ export class AsignaturaPage implements OnInit {
     this.asignaturaSelected = asignatura;
     this.router.navigate(['/asistencia'], { queryParams: { asignaturaSelected: this.asignaturaSelected } });
   }
-
 }

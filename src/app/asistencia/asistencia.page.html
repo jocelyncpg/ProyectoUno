@@ -18,7 +18,11 @@
       <ion-item *ngIf="asistencia.asignatura == this.asignaturaSelected">
         <ion-label>
           <h2>Fecha: {{ asistencia.fecha }}</h2>
-          <p>Hora: {{ asistencia.hora }}</p>
+          <p>
+            Hora: {{ asistencia.hora }}
+            <ion-item *ngIf ="asistencia.presente == true"><b>Presente</b></ion-item>
+            <ion-item *ngIf ="asistencia.presente == false"><b>Ausente</b></ion-item>
+          </p>
         </ion-label>
       </ion-item>
     </ng-container>
