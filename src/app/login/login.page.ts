@@ -45,11 +45,11 @@ export class LoginPage implements OnInit {
       .duration(1500)
       .iterations(Infinity)
       .keyframes([
-        { offset: 0, background: 'red', transform: 'translateX(-150px)' },
-        { offset: 0.1, background: 'yellow' },
+        { offset: 0, background: 'pink', transform: 'translateX(-150px)' },
+        { offset: 0.1, background: 'red' },
         { offset: 0.3, background: 'purple' },
-        { offset: 0.7, background: 'gold' },
-        { offset: 1, background: 'blue', transform: 'translateX(426px)' },
+        { offset: 0.7, background: 'red' },
+        { offset: 1, background: 'pink', transform: 'translateX(426px)' },
       ]);
   }
 

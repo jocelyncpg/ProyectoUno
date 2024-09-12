@@ -9,10 +9,12 @@
   </ion-toolbar>
 </ion-header>
 
-
+<!--inicio cuerpo código-->
 <ion-content padding>
+  <!--navegar entre ls asignaturas-->
   <h2>{{ asignaturaSelected }}</h2>
 
+  <!--lista para ver asistencia (presente o ausente)-->
   <ion-list>
     <ng-container *ngFor="let asistencia of asistencias">
       <ion-item *ngIf="asistencia.asignatura == this.asignaturaSelected">
@@ -28,17 +30,20 @@
     </ng-container>
   </ion-list>
   <br><br>
+
+  <!--botones-->
   <ion-button expand="center" color="purple" routerLink="/home">Inicio</ion-button>
   <ion-button expand="center" color="purple" routerLink="/asignatura">Volver</ion-button>
 
 </ion-content>
+<!--fin cuerpo código-->
 
 
 
-
-
+<!--inicio footer-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
+<!--fin footer-->

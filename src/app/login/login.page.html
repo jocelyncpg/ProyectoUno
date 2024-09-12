@@ -9,34 +9,38 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
+<!--inicio cuerpo código-->
 <ion-content [fullscreen]="true">
     <br><br>
+<!--bienvenida y aparecera el usuario que inicio sesión-->    
     <ion-label>BIENVENIDO, <br>
        {{ username }}</ion-label>
     <br><br><br>
-    
+ <!--botones para ir a registrar asistencia y salir de la app-->    
     <ion-button expand="center" color="purple" routerLink="/escaner">Registrar Asistencia</ion-button>
   
     <ion-button expand="center" color="danger" routerLink="/home">Cerrar Sesion</ion-button>
     <br><br>
 
     <br><br><br>
+  <!--en la animación aparecera el correo electronico que inicia sesión-->
     <div class="square"> DUOC-UC 
       <br> {{ username }}</div>
     <br><br>
+  <!--botones para animación-->
     <ion-button color="purple" (click)="activar()"><ion-icon name="play-outline"></ion-icon></ion-button>
     <ion-button color="purple" (click)="pausar()"><ion-icon name="pause-outline"></ion-icon></ion-button>
     <ion-button color="purple" (click)="detener()"><ion-icon name="stop-outline"></ion-icon></ion-button>
 
   
 </ion-content>
+<!--fin cuerpo código-->
 
 
-
-
+<!--inicio footer-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
+<!--fin footer-->

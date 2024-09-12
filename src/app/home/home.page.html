@@ -9,6 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
+<!--Inicio cuerpo de nuestro pagina-->
 <ion-content [fullscreen]="true" class="form-container">
   <div class="form-wrapper">
     <form (ngSubmit)="home()" #loginForm="ngForm">
@@ -29,6 +30,7 @@
           ></ion-input>
         </ion-item>
         <ion-item *ngIf="usernameError">
+          <!--mensaje de condición de email, debe tener un @ y un . para que sea válido-->
           <ion-label color="danger">Por favor, ingrese un correo electrónico válido.</ion-label>
         </ion-item>
 
@@ -49,18 +51,24 @@
           ></ion-input>
         </ion-item>
         <ion-item *ngIf="passwordError">
+          <!--mensaje de condición de contraseña-->
           <ion-label color="danger">La contraseña debe tener al menos 5 caracteres.</ion-label>
         </ion-item>
       </ion-list>
+       <!--botones para entrar y recuperar contraseña-->
       <ion-button color="purple" expand="center" type="submit">ENTRAR</ion-button>
       <ion-button color="purple" expand="center" routerLink="/recuperar">RECUPERAR CUENTA</ion-button>
     </form>
   </div>
+  <!--Animación estudiantes del inicio-->
   <img src="../../assets/students.png" alt="" class="students">
 </ion-content>
+<!--fin cuerpo de nuestro pagina-->
 
+<!--inicio footer-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
+<!--fin footer-->

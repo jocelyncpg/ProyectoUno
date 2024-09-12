@@ -8,7 +8,7 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
+<!--inicio cuerpo código-->
 <ion-content padding>
   <form (ngSubmit)="resetPassword()">
     <ion-item>
@@ -23,9 +23,10 @@
         required></ion-input>
     </ion-item>
     <ion-item *ngIf="usernameError">
+      <!--para que el correo electronico sea valido debe tener . y @-->
       <ion-label color="danger">Por favor, ingrese un correo electrónico válido.</ion-label>
     </ion-item>
-
+<!--botones para recuperar (envia mensaje por pantalla de envio exitoso) y para volver al inicio-->
     <ion-button color="purple" type="submit">RECUPERAR CONTRASEÑA</ion-button>
     <ion-button color="purple" routerLink="/home">VOLVER</ion-button>
 
@@ -33,10 +34,12 @@
 
 </ion-content>
 
+<!--fin cuerpo código-->
 
-
+<!--inicio footer-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
+<!--fin footer-->

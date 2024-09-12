@@ -1,20 +1,7 @@
-/* Estilos para el contenedor ovalado */
-.oval-container {
-    
-    width: 100px; /* Ajusta el tamaño del contenedor ovalado */
-    height: 100px; /* Ajusta el tamaño del contenedor ovalado */
-    border-radius: 50%; /* Hace que el contenedor tenga una forma ovalada */
-    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
-    align-items: center; /* Centra la imagen verticalmente */
-    justify-content: center; /* Centra la imagen horizontalmente */
-    background-color: black; /* Fondo blanco (opcional) */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra opcional */
-    
-  }
 
   .square {
     height: 50px;
-    width: 200px;
+    width: 230px;
     background: rgb(161, 77, 221);
     margin: auto;
     display: flex;
@@ -22,4 +9,5 @@
     align-items: center;
     font-style: italic;
     font-weight: bold;
+    border-radius: 15px;
   }

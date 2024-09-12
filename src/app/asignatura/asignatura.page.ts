@@ -19,7 +19,7 @@ export class AsignaturaPage implements OnInit {
     this.asignaturas = [
       {nombre: 'Programación de Aplicaciónes Moviles', profesor: 'Patricio Hernandez'},
       {nombre: 'Programación de Base de Datos', profesor: 'Monkey D. Luffy'},
-      {nombre: 'Matematicas', profesor: 'Jorge Gonzales'},
+      {nombre: 'Matematicas', profesor: 'Jorge Gonzalez'},
       {nombre: 'Calidad de Software', profesor: 'Vito Corleone'}
     ]
   }
