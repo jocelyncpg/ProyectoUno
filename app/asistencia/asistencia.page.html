@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/512/3175/3175622.png" alt="University Logo" class="university-logo" />
+        <span class="page-title">RegistrAPP</span>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <h2>{{ asignaturaSelected }}</h2>
+
+  <ion-list>
+    <ng-container *ngFor="let asistencia of asistencias">
+      <ion-item *ngIf="asistencia.asignatura == this.asignaturaSelected">
+        <ion-label>
+          <h2>Fecha: {{ asistencia.fecha }}</h2>
+          <p>
+            Hora: {{ asistencia.hora }}
+            <ion-item *ngIf ="asistencia.presente == true"><b>Presente</b></ion-item>
+            <ion-item *ngIf ="asistencia.presente == false"><b>Ausente</b></ion-item>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+  <br><br>
+  <ion-button expand="center" color="purple" routerLink="/home">Inicio</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/asignatura">Volver</ion-button>
+
+</ion-content>
+
+
+
+
+
+<ion-footer>
+  <div class="uni">
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>

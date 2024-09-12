@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/512/3175/3175622.png" alt="University Logo" class="university-logo" />
+        <span class="page-title">RegistrAPP</span>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="camera-container" *ngIf="scanActive">
+    <!-- Aquí irá la cámara -->
+    <div class="camera-view">
+      <!-- Contenido relacionado con la cámara se mostrará aquí -->
+    </div>
+  </div>
+  <!--
+    <ion-button (click)="startScan()">Iniciar Escaneo</ion-button>
+    NO LO VAMOS A USAR DE MOMENTO !!!!!
+  -->
+
+  
+  <br><br>
+  <ion-button expand="center" color="purple" (click)="startScan()">Scanning</ion-button>
+  <ion-button expand="center" color="purple" (click)="stopScan()" *ngIf="scanActive">Stop Scan</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/asignatura">Ver asignaturas</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/login">Volver</ion-button>
+
+  <img src="../../assets/qr-hand.png" alt="" class="qr-hand">
+
+</ion-content>
+
+
+<ion-footer>
+  <div class="uni">
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>

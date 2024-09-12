@@ -1,0 +1,199 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+
+:root {
+  --ion-color-purple: #8027df;
+  --ion-color-purple-rgb: 255, 215, 0;
+  --ion-color-purple-contrast: #ffffff;
+  --ion-color-purple-contrast-rgb: 0, 0, 0;
+  --ion-color-purple-shade: #5e1ea1;
+  --ion-color-purple-tint: #8027df;
+}
+
+.ion-color-purple {
+  --ion-color-base: var(--ion-color-purple) !important;
+  --ion-color-base-rgb: var(--ion-color-purple-rgb) !important;
+  --ion-color-contrast: var(--ion-color-purple-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-purple-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-purple-shade) !important;
+  --ion-color-tint: var(--ion-color-purple-tint) !important;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  
+  ion-content {
+    color: #ffffff;
+  }
+  
+  ion-footer {
+    background-color: #8027df;
+    color: white; /* Esto hará que el texto dentro del header y footer sea blanco */
+  }
+
+  ion-content {
+    text-align: center;
+  }
+
+  ion-header {
+    ion-toolbar {
+      ion-title {
+
+        .header-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          color:white;
+        }
+          
+          .university-logo {
+            height: 40px; 
+            margin-right: 8px; 
+          }
+          .logo {
+            height: 20px; 
+            margin-right: 4px; 
+            width: 100vw; 
+            left: 0; 
+            right: 0; 
+          }
+    
+          .page-title {
+            text-align: center;
+            font-size: 20px; 
+            font-weight: bold;
+            text-shadow: 2px 0 #8027df, -2px 0 #8027df, 0 2px #8027df, 0 -2px #8027df,
+             1px 1px #8027df, -1px -1px #8027df, 1px -1px #8027df, -1px 1px #8027df;
+          }
+        }
+      }
+    }
+  
+
+  ion-footer {
+        .uni {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+          
+          .duoc-logo {
+            height: 20px; 
+            margin-right: 4px; 
+          }
+          .logo {
+            height: 10px; 
+            margin-right: 2px; 
+          }
+    
+          .page-title {
+            text-align: center;
+            font-size: 20px; 
+            font-weight: bold;
+          }
+        
+      }
+
+      /* Asegura que el contenedor del formulario esté centrado vertical y horizontalmente */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  height: 100vh; 
+  width: 100vw; 
+  
+}
+
+
+form {
+  border-radius: 10px; 
+  padding-top: 35%;
+  padding-bottom: 15%;
+  color: white;
+}
+
+.ion-label{
+  color: white;
+} 
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+
+  height: 170px;
+  width: 400px;
+
+  margin: 0 auto;
+}
+
+b {
+  width: 100%;
+}
+
+.ripple-parent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #ddd;
+
+  user-select: none;
+
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.custom-parent {
+  color: #de1e7e;
+}
+
+.custom-ripple {
+  color: #501ace;
+}
