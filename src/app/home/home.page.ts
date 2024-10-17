@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth'; 
 import { Router } from '@angular/router';
-import { StorageService } from '../storage.service'; 
-import { Animation, AnimationController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-home',
@@ -14,38 +12,44 @@ export class HomePage {
   password: string = '';
   usernameError: boolean = false;
   passwordError: boolean = false;
+  userExists: boolean = false;
+  successMessage: string = ''; // Variable para el mensaje de éxito
 
-  constructor(private router: Router, private storageService: StorageService, private aCtrl:AnimationController) {}
-  
+  constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
-  async home() {
-    this.usernameError = !this.validateEmail(this.username);
-    this.passwordError = this.password.length < 5;
-
-    if (!this.usernameError && !this.passwordError) {
-      await this.storageService.set('username', this.username);
-      this.storageService.get('username')
-      .then( res => console.log(res));
-      this.router.navigate(['/login'], { queryParams: { username: this.username } });
+  async register() {
+    if (this.username && this.password) {
+      try {
+        const userCredential = await this.afAuth.createUserWithEmailAndPassword(this.username, this.password);
+        console.log('User registered successfully:', userCredential);
+        alert("Alumno registrado exitosamente! ");
+        this.userExists = false; // Reinicia el mensaje de usuario existente
+        // Espera un momento para que el mensaje sea visible
+        setTimeout(() => {
+          this.router.navigate(['/login']); // Redirige al login
+        }, 3000); // Redirige después de 3 segundos
+      } catch (error) {
+        console.error('Error registering user:', error);
+        this.userExists = true; // Activa la variable para mostrar un mensaje de error
+        this.successMessage = ''; // Reinicia el mensaje de éxito en caso de error
+      }
+    } else {
+      if (!this.username) this.usernameError = true;
+      if (!this.password || this.password.length < 5) this.passwordError = true;
     }
   }
-  
-  validateEmail(email: string): boolean {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  }
 
-  private animation!:Animation;
-  ngAfterViewInit(){
-    this.animation = this.aCtrl.create()
-      .addElement(document.querySelector('.students') as HTMLElement)
-      .iterations(1)
-      .duration(3000)
-      .fromTo('transform', 'translateX(-100%)', 'translateX(calc(50% - 130px))')
-      .fromTo('width', '0px', '260px')
-      .fromTo('opacity', 0, 1)
-      .fill('forwards')
-    this.animation.play()
+  async login() {
+    if (this.username && this.password) {
+      try {
+        await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
+        this.router.navigate(['/login']); // Asegúrate de redirigir a la página de asistencia
+      } catch (error) {
+        console.error('Error logging in:', error);
+      }
+    } else {
+      if (!this.username) this.usernameError = true;
+      if (!this.password || this.password.length < 5) this.passwordError = true;
+    }
   }
-
 }
