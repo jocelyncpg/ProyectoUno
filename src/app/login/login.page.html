@@ -11,13 +11,11 @@
 
 <ion-content [fullscreen]="true">
   <br><br>
-  <ion-label>BIENVENIDO, <br> {{ username }}</ion-label>
+  <ion-label style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:purple">BIENVENIDO <br> {{ username }}</ion-label>
   <br><br><br>
   <ion-button expand="center" color="purple" routerLink="/escaner">Registrar Asistencia</ion-button>
-  <ion-button expand="center" color="danger" (click)="logout()">Cerrar Sesión</ion-button>
-  <br><br>
-  <div class="square"> DUOC-UC <br> {{ username }}</div>
-  <br><br>
+  <ion-button expand="center" color="purple" (click)="logout()">Cerrar Sesión</ion-button>
+  <ion-button expand="center" color="purple" routerLink="/weather">Ver Clima</ion-button>
 </ion-content>
 
 <ion-footer>

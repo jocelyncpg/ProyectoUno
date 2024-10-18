@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'; 
 import { Router } from '@angular/router';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +15,27 @@ export class HomePage {
   passwordError: boolean = false;
   userExists: boolean = false;
   successMessage: string = ''; // Variable para el mensaje de éxito
+  latitude: number = 0; // Variable para la latitud
+  longitude: number = 0; // Variable para la longitud
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
+  ngOnInit() {
+    this.getCurrentLocation();
+  }
+
+  async getCurrentLocation() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      this.latitude = coordinates.coords.latitude;
+      this.longitude = coordinates.coords.longitude;
+      console.log('Latitud:', this.latitude, 'Longitud:', this.longitude);
+    } catch (error) {
+      console.error('Error getting location:', error);
+      alert('No se pudo obtener la ubicación. Asegúrate de que los permisos estén habilitados.');
+    }
+  }
+  
   async register() {
     if (this.username && this.password) {
       try {
@@ -43,7 +62,7 @@ export class HomePage {
     if (this.username && this.password) {
       try {
         await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
-        this.router.navigate(['/login']); // Asegúrate de redirigir a la página de asistencia
+        this.router.navigate(['/login']); // Redirige a la página de asistencia
       } catch (error) {
         console.error('Error logging in:', error);
       }

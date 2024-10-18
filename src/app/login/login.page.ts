@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -9,9 +10,12 @@ import { Router } from '@angular/router';
 export class LoginPage {
   username: string;
 
+
   constructor(private router: Router) {
     this.username = localStorage.getItem('username') || '';
   }
+
+
 
   // Lógica para cerrar sesión
   logout() {
@@ -19,3 +23,4 @@ export class LoginPage {
     this.router.navigate(['/home']);
   }
 }
+

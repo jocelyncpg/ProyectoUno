@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { WeatherComponent } from './weather/weather.component'; 
 
 const routes: Routes = [
   {
@@ -26,10 +27,12 @@ const routes: Routes = [
   {
     path: 'recuperar',
     loadChildren: () => import('./recuperar/recuperar.module').then( m => m.RecuperarPageModule)
-  },  {
+  },
+  {
     path: 'asignatura',
     loadChildren: () => import('./asignatura/asignatura.module').then( m => m.AsignaturaPageModule)
   },
+  { path: 'weather', component: WeatherComponent },
 
 ];
 
