@@ -17,7 +17,7 @@ export class LoginPage {
 
 
 
-  // Lógica para cerrar sesión
+
   logout() {
     localStorage.removeItem('username');
     this.router.navigate(['/home']);

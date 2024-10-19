@@ -7,15 +7,15 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-// Firebase imports
+
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment'; 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-// Importa tu WeatherModule aquí
-import { WeatherModule } from './weather/weather.module'; // Asegúrate de que la ruta sea correcta
+
+import { WeatherModule } from './weather/weather.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +28,7 @@ import { WeatherModule } from './weather/weather.module'; // Asegúrate de que l
     AngularFireAuthModule,
     FormsModule,
     HttpClientModule,
-    WeatherModule // Asegúrate de agregar el WeatherModule aquí
+    WeatherModule 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
