@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/512/3175/3175622.png" alt="University Logo" class="university-logo" />
+        <span class="page-title">RegistrAPP</span>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label>Nombre: </ion-label>
+      <ion-input [(ngModel)]="persona.nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Apellido: </ion-label>
+      <ion-input [(ngModel)]="persona.apellido" name="apellido" required></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Profesor: </ion-label>
+      <ion-checkbox [(ngModel)]="persona.esProfesor" name="esProfesor"></ion-checkbox>
+    </ion-item>
+
+    <ion-button expand="center" color="purple" type="submit">GUARDAR</ion-button>
+
+  <ion-button color="purple" expand="center" routerLink="/login">VOLVER</ion-button>
+</form>
+
+</ion-content>
+<ion-footer>
+  <div class="uni">
+    <img src="/assets/logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>

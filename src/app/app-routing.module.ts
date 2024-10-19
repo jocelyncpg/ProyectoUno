@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { WeatherComponent } from './weather/weather.component'; 
+import { AgregarPage } from './agregar/agregar.page'; 
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
     loadChildren: () => import('./asignatura/asignatura.module').then( m => m.AsignaturaPageModule)
   },
   { path: 'weather', component: WeatherComponent },
+  {
+    path: 'agregar',
+    loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
+  },
+
 
 ];
 
