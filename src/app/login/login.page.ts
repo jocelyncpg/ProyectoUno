@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -11,14 +12,16 @@ export class LoginPage {
   username: string;
 
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private aService:AuthService
+  ) {
     this.username = localStorage.getItem('username') || '';
   }
 
-
-
-  // Lógica para cerrar sesión
   logout() {
+    this.aService.logout();
+    alert("sesion cerrada")
     localStorage.removeItem('username');
     this.router.navigate(['/home']);
   }
