@@ -20,11 +20,13 @@ const routes: Routes = [
   },
   {
     path: 'asistencia',
-    loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
+    loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule),
+    canActivate:[authGuard]
   },
   {
     path: 'escaner',
-    loadChildren: () => import('./escaner/escaner.module').then( m => m.EscanerPageModule)
+    loadChildren: () => import('./escaner/escaner.module').then( m => m.EscanerPageModule),
+    canActivate:[authGuard]
   },
   {
     path: 'recuperar',
@@ -32,9 +34,20 @@ const routes: Routes = [
   },
   {
     path: 'asignatura',
-    loadChildren: () => import('./asignatura/asignatura.module').then( m => m.AsignaturaPageModule)
+    loadChildren: () => import('./asignatura/asignatura.module').then( m => m.AsignaturaPageModule),
+    canActivate:[authGuard]
   },
   { path: 'weather', component: WeatherComponent },
+  {
+    path: 'agregar',
+    loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
+  },
+  {
+    path: 'crear-asig',
+    loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule)
+  },
+
+
 
 ];
 

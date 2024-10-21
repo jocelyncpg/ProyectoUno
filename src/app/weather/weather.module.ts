@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular'; // Asegúrate de que esto esté aquí
+import { IonicModule } from '@ionic/angular'; 
 import { WeatherComponent } from './weather.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule, // Asegúrate de agregar IonicModule aquí
+    IonicModule, 
     HttpClientModule
   ],
   exports: [WeatherComponent]

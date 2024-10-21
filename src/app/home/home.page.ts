@@ -14,9 +14,9 @@ export class HomePage {
   usernameError: boolean = false;
   passwordError: boolean = false;
   userExists: boolean = false;
-  successMessage: string = ''; // Variable para el mensaje de éxito
-  latitude: number = 0; // Variable para la latitud
-  longitude: number = 0; // Variable para la longitud
+  successMessage: string = ''; 
+  latitude: number = 0; 
+  longitude: number = 0; 
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
@@ -42,15 +42,15 @@ export class HomePage {
         const userCredential = await this.afAuth.createUserWithEmailAndPassword(this.username, this.password);
         console.log('User registered successfully:', userCredential);
         alert("Alumno registrado exitosamente! ");
-        this.userExists = false; // Reinicia el mensaje de usuario existente
-        // Espera un momento para que el mensaje sea visible
+        this.userExists = false; 
+        
         setTimeout(() => {
-          this.router.navigate(['/login']); // Redirige al login
-        }, 3000); // Redirige después de 3 segundos
+          this.router.navigate(['/login']); 
+        }, 3000); 
       } catch (error) {
         console.error('Error registering user:', error);
-        this.userExists = true; // Activa la variable para mostrar un mensaje de error
-        this.successMessage = ''; // Reinicia el mensaje de éxito en caso de error
+        this.userExists = true; 
+        this.successMessage = ''; 
       }
     } else {
       if (!this.username) this.usernameError = true;
@@ -62,7 +62,7 @@ export class HomePage {
     if (this.username && this.password) {
       try {
         await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
-        this.router.navigate(['/login']); // Redirige a la página de asistencia
+        this.router.navigate(['/login']); 
       } catch (error) {
         console.error('Error logging in:', error);
       }
