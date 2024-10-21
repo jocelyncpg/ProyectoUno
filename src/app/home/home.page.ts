@@ -41,7 +41,7 @@ export class HomePage {
       try {
         const userCredential = await this.afAuth.createUserWithEmailAndPassword(this.username, this.password);
         console.log('User registered successfully:', userCredential);
-        alert("Alumno registrado exitosamente! ");
+        alert("Usuario registrado exitosamente! ");
         this.userExists = false; 
         
         setTimeout(() => {
@@ -61,12 +61,24 @@ export class HomePage {
   async login() {
     if (this.username && this.password) {
       try {
+        // Intenta iniciar sesión con el correo y la contraseña proporcionados
         await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
-        this.router.navigate(['/login']); 
+        
+        // Verifica si el correo tiene la extensión @profeduoc.cl
+        if (this.username.endsWith('@profeduoc.cl')) {
+          // Redirige al home de bienvenida del profesor
+          this.router.navigate(['/homeProfe']); // Asegúrate de que esta ruta esté definida en tu archivo de rutas
+        } else {
+          // Redirige al login del alumno
+          this.router.navigate(['/login']); // Asegúrate de que esta ruta esté definida en tu archivo de rutas
+        }
+  
       } catch (error) {
         console.error('Error logging in:', error);
+        // Aquí podrías mostrar un mensaje de error al usuario
       }
     } else {
+      // Manejo de errores para campos vacíos
       if (!this.username) this.usernameError = true;
       if (!this.password || this.password.length < 5) this.passwordError = true;
     }

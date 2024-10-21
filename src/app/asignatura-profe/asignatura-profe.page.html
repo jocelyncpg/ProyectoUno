@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/512/3175/3175622.png" alt="University Logo" class="university-logo" />
+        <span class="page-title">RegistrAPP</span>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding> 
+  <h2>Asignaturas</h2>
+  
+  <ion-list>
+    <ion-item *ngFor="let asignatura of asignaturasProfe" button (click)="test(asignatura.nombre)">
+      <ion-label>
+        <h2>{{ asignatura.nombre }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  
+  <br>
+  <ion-button expand="center" color="purple" routerLink="/home-profe">Volver</ion-button>
+  <br>
+  <img src="../../assets/app-mobile-img.png" alt="" class="img-dev">
+</ion-content>
+
+<ion-footer>
+  <div class="uni">
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>
