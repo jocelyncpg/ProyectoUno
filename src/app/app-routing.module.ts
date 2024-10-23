@@ -38,6 +38,11 @@ const routes: Routes = [
     canActivate:[authGuard]
   },
   { path: 'weather', component: WeatherComponent },
+  
+  {
+    path: 'homeProfe', 
+    loadChildren: () => import('./home-profe/home-profe.module').then(m => m.HomeProfePageModule)
+  },
   {
     path: 'agregar',
     loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
@@ -46,6 +51,15 @@ const routes: Routes = [
     path: 'crear-asig',
     loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule)
   },
+  {
+    path: 'asignatura-profe',
+    loadChildren: () => import('./asignatura-profe/asignatura-profe.module').then( m => m.AsignaturaProfePageModule)
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule)
+  },
+
 
 
 
