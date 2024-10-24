@@ -8,14 +8,12 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<!--inicio cuerpo código-->
 <ion-content padding> 
 
   <h2>asignatura</h2>
   
-<!--lista para navegar en las asisgnaturas y ver asistencia-->
   <ion-list>
-    <ion-item *ngFor="let asignatura of asignaturas" button (click)="test(asignatura.nombre)">
+    <ion-item *ngFor="let asignatura of asignaturas" button (click)="test(asignatura.id)">
       <ion-label>
         <h2>{{ asignatura.nombre }}</h2>
         <p>profesor: {{ asignatura.profesor }}</p>
@@ -23,19 +21,14 @@
     </ion-item>
   </ion-list>
   <br>
-  <!--boton para volver a pagina escaner-->
   <ion-button expand="center" color="purple" routerLink="/escaner">Volver</ion-button>
   <br>
-  <!--animación-->
   <img src="../../assets/app-mobile-img.png" alt="" class="img-dev">
 
 </ion-content>
-<!--fin cuerpo código-->
 
-<!--inicio footer-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
-<!--fin footer-->

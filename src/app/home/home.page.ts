@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'; 
 import { Router } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
+import { Persona } from '../agregar/agregar.page';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,7 @@ export class HomePage {
   latitude: number = 0; 
   longitude: number = 0; 
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  constructor(private firestore:AngularFirestore, private afAuth: AngularFireAuth, private router: Router) {}
 
   ngOnInit() {
     this.getCurrentLocation();
@@ -61,26 +63,39 @@ export class HomePage {
   async login() {
     if (this.username && this.password) {
       try {
-        // Intenta iniciar sesión con el correo y la contraseña proporcionados
-        await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
+        const userCredential = await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
+
+        const userId = userCredential.user?.uid;
+
+        if (userId) {
+          try {
+            const personaDoc = await this.firestore.collection('personas').doc(userId).get().toPromise();
         
-        // Verifica si el correo tiene la extensión @profeduoc.cl
-        if (this.username.endsWith('@profeduoc.cl')) {
-          // Redirige al home de bienvenida del profesor
-          this.router.navigate(['/homeProfe']); // Asegúrate de que esta ruta esté definida en tu archivo de rutas
-        } else {
-          // Redirige al login del alumno
-          this.router.navigate(['/login']); // Asegúrate de que esta ruta esté definida en tu archivo de rutas
+            if (personaDoc && personaDoc.exists) {
+              const personaData = personaDoc.data() as Persona || {}; 
+              if (personaData.esProfesor === true) {
+                this.router.navigate(['/homeProfe']);
+              } else {
+                this.router.navigate(['/login']);
+              }
+            } else {
+              console.error('El documento del usuario no existe en la colección personas.');
+            }
+          } catch (error) {
+            console.error('Error al obtener el documento de Firestore:', error);
+          }
         }
-  
+        
+    
       } catch (error) {
-        console.error('Error logging in:', error);
+        console.error('Error al iniciar sesión:', error);
         // Aquí podrías mostrar un mensaje de error al usuario
       }
     } else {
       // Manejo de errores para campos vacíos
       if (!this.username) this.usernameError = true;
       if (!this.password || this.password.length < 5) this.passwordError = true;
-    }
+    }    
+    
   }
 }

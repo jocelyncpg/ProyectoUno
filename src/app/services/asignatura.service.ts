@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 
 export interface Asignatura{
-  id?:number,
+  id:string,
   nombre:string,
   profesor:string
 }
@@ -15,9 +15,9 @@ export class AsignaturaService {
   private collectionName="asignatura";
   constructor(private firestore:AngularFirestore) { }
 
-  addAsignatura(asignatura:Asignatura): Promise<void> {
+  addAsignatura(asignatura:Asignatura): Promise<string> {
     const id = this.firestore.createId();
-    return this.firestore.collection(this.collectionName).doc(id).set({...asignatura,id})
+    return this.firestore.collection(this.collectionName).doc(id).set({ ...asignatura, id }).then(() => id);  
   }
 
   getAsignatura():Observable<Asignatura[]>{

@@ -9,21 +9,18 @@
   </ion-toolbar>
 </ion-header>
 
-<!--inicio cuerpo código-->
 <ion-content padding>
-  <!--navegar entre ls asignaturas-->
-  <h2>{{ asignaturaSelected }}</h2>
 
-  <!--lista para ver asistencia (presente o ausente)-->
   <ion-list>
     <ng-container *ngFor="let asistencia of asistencias">
-      <ion-item *ngIf="asistencia.asignatura == this.asignaturaSelected">
+      <ion-item>
         <ion-label>
-          <h2>Fecha: {{ asistencia.fecha }}</h2>
+          <h2>Fecha: {{ asistencia.fechaClase | date:'dd/MM/yyyy HH:mm:ss' }}</h2>
           <p>
-            Hora: {{ asistencia.hora }}
-            <ion-item *ngIf ="asistencia.presente == true"><b>Presente</b></ion-item>
-            <ion-item *ngIf ="asistencia.presente == false"><b>Ausente</b></ion-item>
+            <!-- 
+              <ion-item *ngIf ="asistencia.presente == true"><b>Presente</b></ion-item>
+              <ion-item *ngIf ="asistencia.presente == false"><b>Ausente</b></ion-item>
+            -->
           </p>
         </ion-label>
       </ion-item>
@@ -31,19 +28,14 @@
   </ion-list>
   <br><br>
 
-  <!--botones-->
   <ion-button expand="center" color="purple" routerLink="/home">Inicio</ion-button>
   <ion-button expand="center" color="purple" routerLink="/asignatura">Volver</ion-button>
 
 </ion-content>
-<!--fin cuerpo código-->
 
 
-
-<!--inicio footer-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
-<!--fin footer-->

@@ -58,7 +58,11 @@ const routes: Routes = [
   {
     path: 'qr',
     loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule)
+  },  {
+    path: 'crear-curso',
+    loadChildren: () => import('./crear-curso/crear-curso.module').then( m => m.CrearCursoPageModule)
   },
+
 
 
 

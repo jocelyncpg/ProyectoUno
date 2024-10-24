@@ -1,6 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AsignaturaService, Asignatura } from '../services/asignatura.service';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { AuthService } from '../services/auth.service';  
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Persona } from '../agregar/agregar.page';
 
 @Component({
   selector: 'app-asignatura-profe',
@@ -8,30 +13,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./asignatura-profe.page.scss'],
 })
 export class AsignaturaProfePage implements OnInit {
-  // Solo contiene el nombre de las asignaturas
-  asignaturasProfe: { nombre: string }[] = []; 
-  asignaturaSelected: string = '';
+  
+  asignaturas:Asignatura[]=[];
 
-  constructor(private alertController: AlertController, private router: Router, private elementRef: ElementRef) { }
+  asignaturaSelected: string =  '';
+
+  constructor(private firestore:AngularFirestore, 
+              private asignaturaService:AsignaturaService,
+              private alertController: AlertController, 
+              private router: Router, 
+              private elementRef: ElementRef) { }
 
   ngOnInit() {
-    // Aquí defines las asignaturas que el profesor puede ver
-    this.asignaturasProfe = [
-      { nombre: 'Programación de Aplicaciones Móviles' },
-      { nombre: 'Programación de Base de Datos' },
-      { nombre: 'Matemáticas' },
-      { nombre: 'Calidad de Software' }
-    ];
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const uid = user?.uid
+    if(uid) {
+      this.firestore.collection('personas').doc(uid).get().subscribe(async (doc) => {
+        if (doc.exists) { 
+          const personaData = doc.data() as Persona;
+          const asignaturaIds = personaData.asignatura || [];
+          console.log(asignaturaIds)
+    
+          this.asignaturaService.getAsignaturasByIds(asignaturaIds).subscribe(asignatura => {
+            console.log(asignatura);
+            this.asignaturas = asignatura;
+          });
+        } else {
+          alert('No se encontró el usuario.');
+        }
+      });
+    }
   }
 
   ionViewWillEnter() {
-    // Aquí puedes forzar la actualización del estado o hacer cualquier inicialización necesaria
     this.resetRippleEffect();
   }
 
   resetRippleEffect() {
-    // Reemplaza el contenido de la lista para forzar el re-render
-    this.asignaturasProfe = [...this.asignaturasProfe];
+    this.asignaturas = [...this.asignaturas];
   }
 
   ngAfterViewInit() {

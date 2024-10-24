@@ -5,8 +5,7 @@ import { Observable, Timestamp } from 'rxjs';
 export interface Curso{
   id?:string,
   asignatura:string,
-  fechaHoraInicio:Date,
-  fechaHoraTermino:Date 
+  fechaClase:Date, 
 }
 
 @Injectable({

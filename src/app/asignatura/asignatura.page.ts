@@ -47,12 +47,10 @@ export class AsignaturaPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // Aquí puedes forzar la actualización del estado o hacer cualquier inicialización necesaria
     this.resetRippleEffect();
   }
 
   resetRippleEffect() {
-    // Reemplaza el contenido de la lista para forzar el re-render
     this.asignaturas = [...this.asignaturas];
   }
 
