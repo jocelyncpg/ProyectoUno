@@ -4,14 +4,20 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from '../services/auth.service';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+export interface CursoPersona {
+  idCurso: string;
+  presente: boolean;
+}
+
 export interface Persona {
   nombre: string;
   apellido: string;
   asignatura: string[];
-  curso: string[];   
+  curso: CursoPersona[]; // Arreglo de objetos que contiene id del curso y si está presente
   esProfesor: boolean;
   nombreCompleto: string;
 }
+
 @Component({
   selector: 'app-agregar',
   templateUrl: './agregar.page.html',

@@ -6,9 +6,11 @@
 
 <ion-content>
   <div class="qr-container">
-    <h2>Código QR para {{ asignaturaSeleccionada }}</h2>
+    <h2>Código QR para {{ asignaturaSelected }}</h2>
     <img src="assets/qr.png" alt="Código QR" />
   </div>
+  <br>
+  <ion-button expand="full" color="purple" (click)="crearCurso()">Crear Curso</ion-button>
   <br>
   <ion-button expand="center" color="purple" routerLink="/asignatura-profe">Volver</ion-button>
   <br>

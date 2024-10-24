@@ -6,6 +6,7 @@ export interface Curso{
   id?:string,
   asignatura:string,
   fechaClase:Date, 
+  presente?:boolean
 }
 
 @Injectable({
@@ -15,18 +16,19 @@ export class CursoService {
   private collectionName="curso";
   constructor(private firestore:AngularFirestore) { }
 
-  addCurso(curso:Curso): Promise<void> {
+  addCurso(curso: Curso): Promise<string> {
     const id = this.firestore.createId();
-    return this.firestore.collection(this.collectionName).doc(id).set({...curso,id})
+    return this.firestore.collection(this.collectionName).doc(id).set({ ...curso, id }).then(() => id);
   }
+  
 
   getCurso():Observable<Curso[]>{
     return this.firestore.collection<Curso>(this.collectionName).valueChanges();
   }
 
-  getCursosByIds(cursoIds: string[]): Observable<Curso[]> {
+  getCursosByAsignaturaId(asignaturaId: string): Observable<Curso[]> {
     return this.firestore.collection<Curso>('curso', ref =>
-      ref.where('id', 'in', cursoIds)
-    ).valueChanges({ idField: 'id'});
-  }
+      ref.where('asignatura', '==', asignaturaId) 
+    ).valueChanges({ idField: 'id' });
+  }  
 }

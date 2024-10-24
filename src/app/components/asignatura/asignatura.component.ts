@@ -3,8 +3,6 @@ import { AsignaturaService,Asignatura } from 'src/app/services/asignatura.servic
 import { Persona } from 'src/app/agregar/agregar.page';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth } from 'firebase/auth';
-import firebase from 'firebase/compat/app';
-
 
 @Component({
   selector: 'app-asignatura',
@@ -34,21 +32,9 @@ export class AsignaturaComponent  implements OnInit {
   }
 
   addAsignatura(){
-    this.asignaturaService.addAsignatura(this.asignatura).then((asignaturaId)=>{
+    this.asignaturaService.addAsignatura(this.asignatura).then(()=>{
       alert("Agregado Correctamente")
-      const auth = getAuth();
-      const user = auth.currentUser;
-      const uid = user?.uid;
-      if (uid) {
-        this.firestore.collection('personas').doc(uid).update({
-          asignatura: firebase.firestore.FieldValue.arrayUnion(asignaturaId)
-        }).then(() => {
-          alert("ID de asignatura agregado al array 'asignaturas'");
-          this.asignatura.nombre = ""; 
-        }).catch(error => {
-          alert("Error al agregar ID de asignatura: " + error);
-        });
-      }
+      this.asignatura.nombre="";
     }).catch(error=>{alert("Error al ingresar "+error)})
   }
 }
