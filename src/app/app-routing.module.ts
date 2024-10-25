@@ -22,6 +22,10 @@ const routes: Routes = [
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
   {
+  path: 'homeProfe', 
+  loadChildren: () => import('./home-profe/home-profe.module').then(m => m.HomeProfePageModule)
+},
+  {
     path: 'escaner',
     loadChildren: () => import('./escaner/escaner.module').then( m => m.EscanerPageModule)
   },
@@ -38,6 +42,11 @@ const routes: Routes = [
     path: 'agregar',
     loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
   },
+  {
+    path: 'home-profe',
+    loadChildren: () => import('./home-profe/home-profe.module').then( m => m.HomeProfePageModule)
+  },
+
 
 
 ];

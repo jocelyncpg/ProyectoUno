@@ -11,8 +11,8 @@ import { Persona } from '../agregar/agregar.page';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  username: string = '';
-  password: string = '';
+  username: string = "";
+  password: string = "";
   usernameError: boolean = false;
   passwordError: boolean = false;
   userExists: boolean = false;
@@ -31,35 +31,48 @@ export class HomePage {
       try {
         const userCredential = await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
         const userId = userCredential.user?.uid;
-
+  
+        console.log('User ID:', userId); // Agrega aquí
+  
         if (userId) {
           try {
             const personaDoc = await this.firestore.collection('personas').doc(userId).get().toPromise();
-            
-            // Verifica que personaDoc esté definido
-            if (personaDoc && personaDoc.exists) {
-              const personaData = personaDoc.data() as Persona; 
-              if (personaData.esProfesor === true) {
-                this.router.navigate(['/homeProfe']);
+  
+            // Verifica si personaDoc existe antes de acceder a data()
+            if (personaDoc) {
+              console.log('Documento persona:', personaDoc.data()); // Agrega aquí
+  
+              if (personaDoc && personaDoc.exists) {
+                const personaData = personaDoc.data() as Persona || {}; 
+                if (personaData.esProfesor === true) {
+                  this.router.navigate(["/homeProfe"]);
+                } else {
+                  this.router.navigate(["/login"]); // Redirigir a la página home
+                }
               } else {
-                this.router.navigate(['/home']); // Redirigir a la página home
+                console.log('Usuario autenticado:', userId);
+                console.log('Documento persona:', personaDoc); // Verifica el contenido completo
+                // Agrega aquí
               }
-            } 
+            } else {
+              console.log('personaDoc es undefined'); // Agrega aquí
+              
+            }
           } catch (error) {
             console.error('Error al obtener el documento de Firestore:', error);
           }
         }
-
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
-        // Aquí podrías mostrar un mensaje de error al usuario
       }
     } else {
-      // Manejo de errores para campos vacíos
       if (!this.username) this.usernameError = true;
       if (!this.password || this.password.length < 5) this.passwordError = true;
     }    
-  } 
+  }
+  
+
+
 
   async register() {
     const users = await this.afAuth.fetchSignInMethodsForEmail(this.username);
