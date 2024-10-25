@@ -17,6 +17,7 @@ export class HomePage {
   passwordError: boolean = false;
   userExists: boolean = false;
   successMessage: string = '';
+  errorMessage: string = ''; // Mensaje de error adicional
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -29,29 +30,26 @@ export class HomePage {
     if (this.username && this.password) {
       try {
         const userCredential = await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
-
         const userId = userCredential.user?.uid;
 
         if (userId) {
           try {
             const personaDoc = await this.firestore.collection('personas').doc(userId).get().toPromise();
-        
+            
+            // Verifica que personaDoc esté definido
             if (personaDoc && personaDoc.exists) {
-              const personaData = personaDoc.data() as Persona || {}; 
+              const personaData = personaDoc.data() as Persona; 
               if (personaData.esProfesor === true) {
                 this.router.navigate(['/homeProfe']);
               } else {
-                this.router.navigate(['/login']);
+                this.router.navigate(['/home']); // Redirigir a la página home
               }
-            } else {
-              console.error('El documento del usuario no existe en la colección personas.');
-            }
+            } 
           } catch (error) {
             console.error('Error al obtener el documento de Firestore:', error);
           }
         }
-        
-    
+
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
         // Aquí podrías mostrar un mensaje de error al usuario
@@ -61,8 +59,7 @@ export class HomePage {
       if (!this.username) this.usernameError = true;
       if (!this.password || this.password.length < 5) this.passwordError = true;
     }    
-    
-  }
+  } 
 
   async register() {
     const users = await this.afAuth.fetchSignInMethodsForEmail(this.username);
