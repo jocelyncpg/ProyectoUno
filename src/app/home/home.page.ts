@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Persona } from '../agregar/agregar.page';
 
 @Component({
   selector: 'app-home',
@@ -18,33 +20,51 @@ export class HomePage {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
     private alertController: AlertController,
     private router: Router
   ) {}
 
   async login() {
-    // Resetear errores
-    this.usernameError = !this.validateEmail(this.username);
-    this.passwordError = this.password.length < 5;
+    if (this.username && this.password) {
+      try {
+        const userCredential = await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
 
-    // Verificar si hay errores
-    if (this.usernameError || this.passwordError) {
-      return;
-    }
+        const userId = userCredential.user?.uid;
 
-    try {
-      
-      await this.afAuth.signInWithEmailAndPassword(this.username, this.password);
-      console.log('Inicio de sesión exitoso');
-      
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      await this.showAlert('Error', 'Error al iniciar sesión. Verifica tus credenciales.');
-    }
+        if (userId) {
+          try {
+            const personaDoc = await this.firestore.collection('personas').doc(userId).get().toPromise();
+        
+            if (personaDoc && personaDoc.exists) {
+              const personaData = personaDoc.data() as Persona || {}; 
+              if (personaData.esProfesor === true) {
+                this.router.navigate(['/homeProfe']);
+              } else {
+                this.router.navigate(['/login']);
+              }
+            } else {
+              console.error('El documento del usuario no existe en la colección personas.');
+            }
+          } catch (error) {
+            console.error('Error al obtener el documento de Firestore:', error);
+          }
+        }
+        
+    
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        // Aquí podrías mostrar un mensaje de error al usuario
+      }
+    } else {
+      // Manejo de errores para campos vacíos
+      if (!this.username) this.usernameError = true;
+      if (!this.password || this.password.length < 5) this.passwordError = true;
+    }    
+    
   }
 
- 
-  async checkUserExists() {
+  async register() {
     const users = await this.afAuth.fetchSignInMethodsForEmail(this.username);
     if (users.length > 0) {
       this.userExists = true; // Usuario ya existe
@@ -62,17 +82,10 @@ export class HomePage {
       this.router.navigate(['/agregar']); 
     } catch (error) {
       console.error('Error al registrar usuario:', error);
-      await this.showAlert('Error', 'Usuario ya existe. Prueba con otro.');
+      await this.showAlert('Error', 'Usuario ya existe');
     }
   }
 
-  
-  validateEmail(email: string): boolean {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  }
-
-  
   async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header: header,
