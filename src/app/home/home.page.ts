@@ -20,21 +20,9 @@ export class HomePage {
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
-  ngOnInit() {
-    this.getCurrentLocation();
-  }
 
-  async getCurrentLocation() {
-    try {
-      const coordinates = await Geolocation.getCurrentPosition();
-      this.latitude = coordinates.coords.latitude;
-      this.longitude = coordinates.coords.longitude;
-      console.log('Latitud:', this.latitude, 'Longitud:', this.longitude);
-    } catch (error) {
-      console.error('Error getting location:', error);
-      alert('No se pudo obtener la ubicación. Asegúrate de que los permisos estén habilitados.');
-    }
-  }
+
+
   
   async register() {
     if (this.username && this.password) {
