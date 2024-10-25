@@ -36,18 +36,21 @@
     <ion-item *ngIf="passwordError">
       <ion-label color="danger">La contraseña debe tener al menos 5 caracteres.</ion-label>
     </ion-item>
-    
+
     <ion-item *ngIf="userExists">
       <ion-label color="danger">Este usuario ya existe.</ion-label>
     </ion-item>
 
     <ion-button color="purple" expand="center" type="submit">ENTRAR</ion-button>
     <ion-button color="purple" expand="center" routerLink="/recuperar">RECUPERAR CUENTA</ion-button>
-    <ion-button color="purple" expand="center" (click)="register()">REGISTRARSE</ion-button>
+    <ion-button 
+      color="purple" 
+      expand="center" 
+      (click)="checkUserExists()">
+      REGISTRARSE
+    </ion-button>
   </form>
   
-
-
   <!-- Mensaje de éxito -->
   <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
 </ion-content>

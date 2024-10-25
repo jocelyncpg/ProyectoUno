@@ -8,8 +8,9 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <form (ngSubmit)="submitForm()">
+  <form (ngSubmit)="guardar()">
     <ion-item>
       <ion-label>Nombre: </ion-label>
       <ion-input [(ngModel)]="persona.nombre" name="nombre" required></ion-input>
@@ -20,18 +21,16 @@
       <ion-input [(ngModel)]="persona.apellido" name="apellido" required></ion-input>
     </ion-item>
 
-
     <ion-item>
       <ion-label>Profesor: </ion-label>
       <ion-checkbox [(ngModel)]="persona.esProfesor" name="esProfesor"></ion-checkbox>
     </ion-item>
 
     <ion-button expand="center" color="purple" type="submit">GUARDAR</ion-button>
-
-  <ion-button color="purple" expand="center" routerLink="/login">VOLVER</ion-button>
-</form>
-
+    <ion-button color="purple" expand="center" routerLink="/login">VOLVER</ion-button>
+  </form>
 </ion-content>
+
 <ion-footer>
   <div class="uni">
     <img src="/assets/logo-duoc.png" alt="Duoc Logo" class="university-logo" />

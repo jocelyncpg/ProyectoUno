@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AlertController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/compat/firestore';  
 
 @Component({
   selector: 'app-agregar',
@@ -11,66 +11,48 @@ export class AgregarPage {
   persona = {
     nombre: '',
     apellido: '',
-    asignatura: '',
-    curso: '',
-    esProfesor: false
+    esProfesor: false,
   };
 
-  constructor(
-    private firestore: AngularFirestore,  
-    private alertController: AlertController  
-  ) {}
+  constructor(private firestore: AngularFirestore, private alertController: AlertController) {}
 
-  async submitForm() {
-    const fullName = `${this.persona.nombre.toLowerCase()} ${this.persona.apellido.toLowerCase()}`;
+  // Función para guardar información
+  async guardar() {
+    if (!this.persona.nombre || !this.persona.apellido) {
+      await this.showAlert('Error', 'Por favor, complete todos los campos.');
+      return;
+    }
 
-    
-    const userRef = this.firestore.collection('personas', ref =>
-      ref.where('nombreCompleto', '==', fullName)
-    );
+    const data = {
+      nombre: this.persona.nombre,
+      apellido: this.persona.apellido,
+      esProfesor: this.persona.esProfesor,
+    };
 
-    userRef.get().subscribe(async (snapshot) => {
-      if (!snapshot.empty) {
-        
-        await this.presentAlert('Error', 'Este usuario ya está registrado.');
-      } else {
-        
-        this.firestore.collection('personas').add({
-          nombre: this.persona.nombre,
-          apellido: this.persona.apellido,
-          asignatura: this.persona.asignatura,
-          curso: this.persona.curso,
-          esProfesor: this.persona.esProfesor,
-          nombreCompleto: fullName  
-        }).then(async () => {
-          await this.presentAlert('Registro Exitoso', 'La persona ha sido registrada correctamente.');
-
-          this.resetForm();
-        }).catch(async (error) => {
-          console.error('Error al registrar: ', error);
-          await this.presentAlert('Error', 'Hubo un error al registrar. Inténtalo de nuevo.');
-        });
-      }
-    });
+    try {
+      await this.firestore.collection('usuarios').add(data);
+      await this.showAlert('Éxito', 'Guardado exitosamente.');
+      this.limpiarFormulario();
+    } catch (error) {
+      console.error('Error al guardar: ', error);
+      await this.showAlert('Error', 'Ocurrió un problema al guardar.');
+    }
   }
 
-  async presentAlert(header: string, message: string) {
+  // Función para mostrar alertas
+  async showAlert(header: string, message: string) {
     const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: ['OK']
+      header: header,
+      message: message,
+      buttons: ['OK'],
     });
     await alert.present();
   }
 
-
-  resetForm() {
-    this.persona = {
-      nombre: '',
-      apellido: '',
-      asignatura: '',
-      curso: '',
-      esProfesor: false
-    };
+  // Limpiar el formulario después de guardar
+  limpiarFormulario() {
+    this.persona.nombre = '';
+    this.persona.apellido = '';
+    this.persona.esProfesor = false;
   }
 }
