@@ -24,6 +24,10 @@ const routes: Routes = [
     canActivate:[authGuard]
   },
   {
+  path: 'homeProfe', 
+  loadChildren: () => import('./home-profe/home-profe.module').then(m => m.HomeProfePageModule)
+},
+  {
     path: 'escaner',
     loadChildren: () => import('./escaner/escaner.module').then( m => m.EscanerPageModule),
     canActivate:[authGuard]
@@ -48,21 +52,25 @@ const routes: Routes = [
     loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
   },
   {
-    path: 'crear-asig',
-    loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule)
+    path: 'home-profe',
+    loadChildren: () => import('./home-profe/home-profe.module').then( m => m.HomeProfePageModule)
   },
   {
     path: 'asignatura-profe',
     loadChildren: () => import('./asignatura-profe/asignatura-profe.module').then( m => m.AsignaturaProfePageModule)
   },
   {
-    path: 'qr',
-    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule)
-  },  {
     path: 'crear-curso',
     loadChildren: () => import('./crear-curso/crear-curso.module').then( m => m.CrearCursoPageModule)
   },
-
+  {
+    path: 'crear-asig',
+    loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule)
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule)
+  },
 
 
 
