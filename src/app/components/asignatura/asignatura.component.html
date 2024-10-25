@@ -1,11 +1,21 @@
-<form (ngSubmit)="addAsignatura()">
-  <ion-item>
-    <ion-label position="floating">Nombre</ion-label>
-    <ion-input name="nombre" placeholder="nombre" [(ngModel)]="asignatura.nombre" required></ion-input>
-  </ion-item>
+<ion-content [fullscreen]="true">
+  <h2>Crear Asignatura</h2>
 
-  <ion-button type="submit" expand="full" color="purple">subir</ion-button>
+  <form (ngSubmit)="addAsignatura()">
+    <ion-item>
+      <ion-label position="floating">Nombre Asignatura</ion-label>
+      <br>
+      <ion-input name="nombre" placeholder="Escriba aquí" [(ngModel)]="asignatura.nombre" required></ion-input>
+    </ion-item>
 
-</form>
+    <ion-button type="submit" expand="full" color="purple">Subir</ion-button>
+  </form>
+  
+  <ion-button expand="full" color="purple" routerLink="/homeProfe">Volver</ion-button>
+</ion-content>
 
-<ion-button type="submit" expand="full" color="purple" routerLink="/homeProfe">Volver</ion-button>
+<ion-footer>
+  <div class="uni">
+    <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
+  </div>
+</ion-footer>
