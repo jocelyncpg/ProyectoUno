@@ -3,26 +3,27 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { CursoService, Curso } from '../services/curso.service';
 import { Timestamp } from 'firebase/firestore';
 import { arrayUnion } from 'firebase/firestore';
-import { ActivatedRoute } from '@angular/router'; // Importar ActivatedRoute
+import { ActivatedRoute } from '@angular/router'; 
 
 @Component({
   selector: 'app-qr',
   templateUrl: './qr.page.html',
   styleUrls: ['./qr.page.scss'],
 })
-export class QrPage implements OnInit { // Implementar OnInit
+export class QrPage implements OnInit { 
   asignaturaSelected: string = '';
+  nombre: string = '';
 
   constructor(
     private firestore: AngularFirestore, 
     private cursoService: CursoService,
-    private route: ActivatedRoute // Inyectar ActivatedRoute
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.asignaturaSelected = params['asignaturaSelected'] || ''; // Asignar el valor del parámetro
-      console.log('Asignatura seleccionada:', this.asignaturaSelected); // Verificar el valor
+      this.asignaturaSelected = params['asignaturaSelected'] || ''; 
+      this.nombre = params['nombre'] || '';
     });
   }
 
@@ -31,11 +32,10 @@ export class QrPage implements OnInit { // Implementar OnInit
     try {
       const nuevoCurso: Curso = {
         asignatura: this.asignaturaSelected,
-        fechaClase: new Date(Timestamp.now().toDate().getTime()), // Fecha actual en formato Date
+        fechaClase: new Date(Timestamp.now().toDate().getTime()), 
       };
 
       const cursoId = await this.cursoService.addCurso(nuevoCurso);
-      alert('Clase creada');
 
       const personasRef = this.firestore.collection('personas', ref =>
         ref.where('asignatura', 'array-contains', this.asignaturaSelected)
@@ -57,7 +57,7 @@ export class QrPage implements OnInit { // Implementar OnInit
         });
 
         await batch.commit();
-        alert("ID del curso agregado a todas las personas con la asignatura.");
+        alert("Clase Creada con Exito.");
       } else {
         alert("No se encontraron personas con la asignatura especificada.");
       }

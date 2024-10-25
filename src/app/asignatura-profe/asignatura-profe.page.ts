@@ -17,6 +17,7 @@ export class AsignaturaProfePage implements OnInit {
   asignaturas:Asignatura[]=[];
 
   asignaturaSelected: string =  '';
+  asignaturaNombre: string = '';
 
   constructor(private firestore:AngularFirestore, 
               private asignaturaService:AsignaturaService,
@@ -59,9 +60,9 @@ export class AsignaturaProfePage implements OnInit {
     img.classList.add('animate');
   }
   
-  async test(asignatura: string) {
+  async test(asignatura: string, nombre: string) {
     this.asignaturaSelected = asignatura;
-    // Navega a la página de QR
-    this.router.navigate(['/qr'], { queryParams: { asignaturaSelected: this.asignaturaSelected } });
+    this.asignaturaNombre = nombre;
+    this.router.navigate(['/qr'], { queryParams: { asignaturaSelected: this.asignaturaSelected, nombre: this.asignaturaNombre } });
   }
 }

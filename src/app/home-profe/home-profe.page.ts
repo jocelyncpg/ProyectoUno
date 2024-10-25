@@ -12,14 +12,14 @@ export class HomeProfePage {
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     this.afAuth.authState.subscribe(user => {
-      this.username = user?.email ?? 'Profesor'; // Obtiene el correo del usuario
+      this.username = user?.email ?? 'Profesor';
     });
   }
 
   async logout() {
     try {
-      await this.afAuth.signOut(); // Cierra sesión
-      this.router.navigate(['/home']); // Redirige al login
+      await this.afAuth.signOut();
+      this.router.navigate(['/home']);
     } catch (error) {
       console.error('Error cerrando sesión:', error);
     }
