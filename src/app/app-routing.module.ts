@@ -24,10 +24,6 @@ const routes: Routes = [
     canActivate:[authGuard]
   },
   {
-  path: 'homeProfe', 
-  loadChildren: () => import('./home-profe/home-profe.module').then(m => m.HomeProfePageModule)
-},
-  {
     path: 'escaner',
     loadChildren: () => import('./escaner/escaner.module').then( m => m.EscanerPageModule),
     canActivate:[authGuard]
@@ -45,35 +41,48 @@ const routes: Routes = [
   
   {
     path: 'homeProfe', 
-    loadChildren: () => import('./home-profe/home-profe.module').then(m => m.HomeProfePageModule)
+    loadChildren: () => import('./home-profe/home-profe.module').then(m => m.HomeProfePageModule),
+    canActivate:[authGuard]
   },
   {
     path: 'agregar',
-    loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
+    loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule),
   },
   {
     path: 'home-profe',
-    loadChildren: () => import('./home-profe/home-profe.module').then( m => m.HomeProfePageModule)
-  },
-  {
-    path: 'asignatura-profe',
-    loadChildren: () => import('./asignatura-profe/asignatura-profe.module').then( m => m.AsignaturaProfePageModule)
-  },
-  {
-    path: 'crear-curso',
-    loadChildren: () => import('./crear-curso/crear-curso.module').then( m => m.CrearCursoPageModule)
+    loadChildren: () => import('./home-profe/home-profe.module').then( m => m.HomeProfePageModule),
+    canActivate:[authGuard]
   },
   {
     path: 'crear-asig',
-    loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule)
+    loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule),
+    canActivate:[authGuard]
+  },
+  {
+    path: 'asignatura-profe',
+    loadChildren: () => import('./asignatura-profe/asignatura-profe.module').then( m => m.AsignaturaProfePageModule),
+    canActivate:[authGuard]
   },
   {
     path: 'qr',
-    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule)
+    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule),
+    canActivate:[authGuard]
+  },  
+  {
+    path: 'crear-curso',
+    loadChildren: () => import('./crear-curso/crear-curso.module').then( m => m.CrearCursoPageModule),
+    canActivate:[authGuard]
   },
-
-
-
+  {
+    path: 'crear-asig',
+    loadChildren: () => import('./crear-asig/crear-asig.module').then( m => m.CrearAsigPageModule),
+    canActivate:[authGuard]
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule),
+    canActivate:[authGuard]
+  },
 
 ];
 

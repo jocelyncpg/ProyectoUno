@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';  
 import { AuthService } from '../services/auth.service';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Router } from '@angular/router';
 
 export interface CursoPersona {
   idCurso: string;
@@ -36,7 +37,8 @@ export class AgregarPage {
   constructor(
     private firestore: AngularFirestore,  
     private alertController: AlertController,
-    private authService:AuthService
+    private authService:AuthService,
+    private router:Router
   ) {}
 
   async submitForm() {
@@ -64,6 +66,7 @@ export class AgregarPage {
           nombreCompleto: fullName  
         }).then(async () => {
           await this.presentAlert('Registro Exitoso', 'La persona ha sido registrada correctamente.');
+          this.router.navigate(['/login'])
 
           this.resetForm();
         }).catch(async (error) => {

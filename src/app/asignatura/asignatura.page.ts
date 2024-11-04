@@ -25,6 +25,11 @@ export class AsignaturaPage implements OnInit {
               private elementRef: ElementRef) { }
 
   ngOnInit() {
+    
+  }
+
+  ionViewWillEnter() {
+    this.resetRippleEffect();
     const auth = getAuth();
     const user = auth.currentUser;
     const uid = user?.uid
@@ -44,10 +49,6 @@ export class AsignaturaPage implements OnInit {
         }
       });
     }
-  }
-
-  ionViewWillEnter() {
-    this.resetRippleEffect();
   }
 
   resetRippleEffect() {
