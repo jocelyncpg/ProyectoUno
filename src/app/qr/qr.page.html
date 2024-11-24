@@ -5,9 +5,18 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-list>
+    <ng-container *ngFor="let asistencia of asistencias" >
+      <ion-item button (click)="cambiarPage(asistencia.id || '',this.nombre)">
+        <ion-label>
+          <h2>Fecha: {{ asistencia.fechaClase | date:'dd/MM/yyyy HH:mm:ss' }}</h2>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
   <div class="qr-container">
-    <h2>Código QR para {{ nombre }}</h2>
-    <img src="assets/qr.png" alt="Código QR" />
   </div>
   <br>
   <ion-button expand="full" color="purple" (click)="crearCurso()">Iniciar Clase</ion-button>

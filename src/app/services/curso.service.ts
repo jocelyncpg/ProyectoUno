@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, Timestamp } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 export interface Curso{
   id?:string,

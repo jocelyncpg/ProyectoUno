@@ -82,7 +82,11 @@ const routes: Routes = [
     path: 'qr',
     loadChildren: () => import('./qr/qr.module').then( m => m.QrPageModule),
     canActivate:[authGuard]
+  },  {
+    path: 'clase-qr',
+    loadChildren: () => import('./clase-qr/clase-qr.module').then( m => m.ClaseQRPageModule)
   },
+
 
 ];
 

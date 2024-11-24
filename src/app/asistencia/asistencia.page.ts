@@ -39,7 +39,6 @@ export class AsistenciaPage implements OnInit {
       this.firestore.collection('personas').doc(uid).get().subscribe(async (doc) => {
         if (doc.exists) {
           const personaData = doc.data() as Persona;          
-          // Verifica si 'curso' es un arreglo
           const cursosPersona = Array.isArray(personaData.curso) ? personaData.curso : [];
   
           this.cursoService.getCursosByAsignaturaId(this.asignaturaSelected).subscribe(cursos => {

@@ -4,6 +4,9 @@ import { CursoService, Curso } from '../services/curso.service';
 import { Timestamp } from 'firebase/firestore';
 import { arrayUnion } from 'firebase/firestore';
 import { ActivatedRoute } from '@angular/router'; 
+import { getAuth } from 'firebase/auth';
+import { Persona } from '../agregar/agregar.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qr',
@@ -13,22 +16,51 @@ import { ActivatedRoute } from '@angular/router';
 export class QrPage implements OnInit { 
   asignaturaSelected: string = '';
   nombre: string = '';
+  claseSelected: string = '';
+  asistencias:Curso[]=[];
 
   constructor(
     private firestore: AngularFirestore, 
     private cursoService: CursoService,
-    private route: ActivatedRoute 
+    private aRoute: ActivatedRoute,
+    private route: Router
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.aRoute.queryParams.subscribe(params => {
       this.asignaturaSelected = params['asignaturaSelected'] || ''; 
       this.nombre = params['nombre'] || '';
     });
   }
 
+  ionViewWillEnter(){
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const uid = user?.uid;
+
+    if (uid) {
+      this.firestore.collection('personas').doc(uid).get().subscribe(async (doc) => {
+        if (doc.exists) {
+          const personaData = doc.data() as Persona
+          const cursosPersona = Array.isArray(personaData.curso) ? personaData.curso : [];
+
+          this.cursoService.getCursosByAsignaturaId(this.asignaturaSelected).subscribe(cursos => {
+            this.asistencias = cursos.map(curso => {
+              const cursoPersona = cursosPersona.find(c => c.idCurso === curso.id);
+              curso.presente = cursoPersona ? cursoPersona.presente : false;
+
+              if(curso.fechaClase instanceof Timestamp) {
+                curso.fechaClase = curso.fechaClase.toDate();
+              }
+              return curso
+            })
+          })
+        }
+      })
+    }
+  }
+
   async crearCurso() {
-    console.log(this.asignaturaSelected);
     try {
       const nuevoCurso: Curso = {
         asignatura: this.asignaturaSelected,
@@ -64,5 +96,11 @@ export class QrPage implements OnInit {
     } catch (error) {
       console.error('Error al crear curso:', error);
     }
+  }
+
+  async cambiarPage(clase: string, nombre: string){
+    this.claseSelected = clase;
+    this.nombre = nombre;
+    this.route.navigate(['/clase-qr'], {queryParams: { clase: this.claseSelected, nombre: this.nombre}})
   }
 }
