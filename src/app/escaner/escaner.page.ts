@@ -8,6 +8,7 @@ import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
 import { Persona } from '../agregar/agregar.page';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth } from 'firebase/auth';
+import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 
 
 @Component({
@@ -49,14 +50,11 @@ export class EscanerPage implements OnInit, AfterViewInit {
         const personaData = personaSnapshot.data() as Persona;
         const cursos = personaData.curso || [];
 
-        // Buscar el curso con el ID leído del QR
         const cursoIndex = cursos.findIndex((c: any) => c.idCurso === scannedResult);
 
         if (cursoIndex !== -1) {
-          // Actualizar el valor de 'presente' a true
           cursos[cursoIndex].presente = true;
 
-          // Guardar los cambios en Firestore
           await personaDoc.update({ curso: cursos });
           alert('Asistencia marcada correctamente');
         } else {
@@ -71,24 +69,31 @@ export class EscanerPage implements OnInit, AfterViewInit {
     }
   }
 
-  startScanning(): void {
-    const codeReader = new BrowserQRCodeReader();
+  async startScanning () {
+    try {
+      const code = await this.scanning();
+      if (!code) {
+        alert('QR no detectado')
+        return;
+      }
+      alert('QR detectado')
+      this.presente(code);
+    } catch(e) {
+      console.log(e)
+    }
+  }
 
-    codeReader
-      .decodeOnceFromVideoDevice(undefined, this.videoElement.nativeElement)
-      .then((result) => {
-        this.scannedResult = result.getText();
-        alert(`ID de curso escaneado: ${this.scannedResult}`);
-        if (this.scannedResult) {
-          this.presente(this.scannedResult);
-        }
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        this.scannerControls?.stop();
-        console.log(this.scannedResult);
-      })
-
+  async scanning(val?: number) {
+    try {
+      const result = await CapacitorBarcodeScanner.scanBarcode({
+        hint: val || 17,
+        cameraDirection: 1
+      });
+      console.log(result);
+      return result.ScanResult
+    } catch(e){
+      throw(e)
+    }
   }
 
   stopScanning(): void {
