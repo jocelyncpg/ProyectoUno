@@ -8,13 +8,15 @@ import { ClaseQRPageRoutingModule } from './clase-qr-routing.module';
 
 import { ClaseQRPage } from './clase-qr.page';
 
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClaseQRPageRoutingModule
+    ClaseQRPageRoutingModule,
+    QRCodeModule
   ],
   declarations: [ClaseQRPage]
 })

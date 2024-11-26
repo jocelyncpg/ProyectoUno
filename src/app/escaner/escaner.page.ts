@@ -1,8 +1,14 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
-import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
 import { Animation, AnimationController } from '@ionic/angular';
+
+import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
+
+import { Persona } from '../agregar/agregar.page';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { getAuth } from 'firebase/auth';
+
 
 @Component({
   selector: 'app-escaner',
@@ -10,17 +16,83 @@ import { Animation, AnimationController } from '@ionic/angular';
   styleUrls: ['./escaner.page.scss'],
 })
 export class EscanerPage implements OnInit, AfterViewInit {
-  scanActive: boolean = false;
   animation: Animation | null = null;
 
-  constructor(private AlertController: AlertController, private animationCtrl: AnimationController) {}
+  @ViewChild('video') videoElement!: ElementRef<HTMLVideoElement>;
+  scannerControls!: IScannerControls; 
+  scannedResult: string | null = null;
 
-  ngOnInit() {
-    if (Capacitor.isNativePlatform()) {
-      console.log('Estamos en un dispositivo móvil');
-    } else {
-      console.log('Esta función solo está disponible en plataformas móviles');
+
+  constructor(private AlertController: AlertController, 
+              private animationCtrl: AnimationController,
+              private firestore: AngularFirestore
+            ) {}
+
+  ngOnInit() {}
+
+  async presente(scannedResult: string) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert('Usuario no autenticado');
+      return;
     }
+
+    const uid = user.uid;
+
+    try {
+      const personaDoc = this.firestore.collection('personas').doc(uid);
+      const personaSnapshot = await personaDoc.get().toPromise();
+
+      if (personaSnapshot?.exists) {
+        const personaData = personaSnapshot.data() as Persona;
+        const cursos = personaData.curso || [];
+
+        // Buscar el curso con el ID leído del QR
+        const cursoIndex = cursos.findIndex((c: any) => c.idCurso === scannedResult);
+
+        if (cursoIndex !== -1) {
+          // Actualizar el valor de 'presente' a true
+          cursos[cursoIndex].presente = true;
+
+          // Guardar los cambios en Firestore
+          await personaDoc.update({ curso: cursos });
+          alert('Asistencia marcada correctamente');
+        } else {
+          alert('Curso no encontrado para el usuario actual');
+        }
+      } else {
+        alert('No se encontró el documento del usuario actual');
+      }
+    } catch (error) {
+      console.error('Error al actualizar la asistencia:', error);
+      alert('Hubo un error al marcar la asistencia');
+    }
+  }
+
+  startScanning(): void {
+    const codeReader = new BrowserQRCodeReader();
+
+    codeReader
+      .decodeOnceFromVideoDevice(undefined, this.videoElement.nativeElement)
+      .then((result) => {
+        this.scannedResult = result.getText();
+        alert(`ID de curso escaneado: ${this.scannedResult}`);
+        if (this.scannedResult) {
+          this.presente(this.scannedResult);
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        this.scannerControls?.stop();
+        console.log(this.scannedResult);
+      })
+
+  }
+
+  stopScanning(): void {
+    this.scannerControls?.stop();
   }
 
   ngAfterViewInit() {
@@ -29,64 +101,6 @@ export class EscanerPage implements OnInit, AfterViewInit {
       .duration(10000) // Duración 10 segundos de la animación (está en milisegundos)
       .iterations(Infinity)
       .fromTo('transform', 'rotate(0deg)', 'rotate(360deg)'); // Rotar la imagen 360 grados
-  }
-
-  async checkPermissions(): Promise<boolean> {
-    const status = await BarcodeScanner.checkPermission({ force: true });
-  
-    if (status.granted) {
-      return true;
-    } else if (status.denied) {
-      alert('Permisos de cámara denegados. Habilítalos en la configuración.');
-      return false;
-    } else {
-      alert('Permisos de cámara no otorgados.');
-      return false;
-    }
-  }
-
-  async startScan() {
-    if (Capacitor.isNativePlatform()) {
-      const hasPermission = await this.checkPermissions();
-      if (!hasPermission) {
-        return;
-      }
-
-      try {
-        this.scanActive = true;
-        const result = await BarcodeScanner.startScan();
-        console.log(result);
-        this.stopScan();
-      } catch (error) {
-        console.error('Error al escanear:', error);
-        this.scanActive = false;
-      }
-    } else {
-      const alert = await this.AlertController.create({
-        header: "No se detecta camara",
-        message: "Asegurate que estas en una plataforma nativa (Android/IOS)",
-        buttons: ['Ok']
-      })
-
-      await alert.present();
-    }
-  }
-
-  async stopScan() {
-    if (Capacitor.isNativePlatform() && this.scanActive) {
-      try {
-        await BarcodeScanner.stopScan();
-        this.scanActive = false;
-      } catch (error) {
-        console.error('Error al detener el escaneo:', error);
-      }
-    } else {
-      console.log('Esta función solo está disponible en plataformas móviles');
-    }
-  }
-
-  ionViewWillLeave() {
-    this.stopScan(); // Detener escaneo al salir de la página
   }
 
   ionViewWillEnter() {

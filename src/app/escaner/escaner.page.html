@@ -8,35 +8,24 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<!--inicio cuerpo código-->
 <ion-content>
-  <div class="camera-container" *ngIf="scanActive">
-    <!-- Aquí irá la cámara -->
-    <div class="camera-view">
-      <!-- Contenido relacionado con la cámara se mostrará aquí -->
-    </div>
-  </div>
-  <!--
-    <ion-button (click)="startScan()">Iniciar Escaneo</ion-button>
-    NO LO VAMOS A USAR DE MOMENTO !!!!!
-  -->
+
+  <video #video width="300" height="300"></video>
+  <ion-button expand="center" color="purple" (click)="startScanning()">Iniciar Escaneo</ion-button>
+  <ion-button expand="center" color="purple" (click)="stopScanning()">Detener Escaneo</ion-button>
 
   
   <br><br>
-  <ion-button expand="center" color="purple" (click)="startScan()">Scanning</ion-button>
-  <ion-button expand="center" color="purple" (click)="stopScan()" *ngIf="scanActive">Stop Scan</ion-button>
+
   <ion-button expand="center" color="purple" routerLink="/asignatura">Ver asignaturas</ion-button>
   <ion-button expand="center" color="purple" routerLink="/login">Volver</ion-button>
-<!--animación-->
+
   <img src="../../assets/qr-hand.png" alt="" class="qr-hand">
 
 </ion-content>
-<!--fin cuerpo código-->
 
-<!--inicio foter-->
 <ion-footer>
   <div class="uni">
     <img src="\assets\logo-duoc.png" alt="Duoc Logo" class="university-logo" />
   </div>
 </ion-footer>
-<!--fin footer-->

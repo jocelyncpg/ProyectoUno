@@ -13,9 +13,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment'; 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
-
 import { WeatherModule } from './weather/weather.module';
+import { QRCodeModule } from 'angularx-qrcode';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +29,8 @@ import { WeatherModule } from './weather/weather.module';
     FormsModule,
     HttpClientModule,
     WeatherModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    QRCodeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

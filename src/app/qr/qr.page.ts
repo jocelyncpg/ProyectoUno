@@ -101,6 +101,6 @@ export class QrPage implements OnInit {
   async cambiarPage(clase: string, nombre: string){
     this.claseSelected = clase;
     this.nombre = nombre;
-    this.route.navigate(['/clase-qr'], {queryParams: { clase: this.claseSelected, nombre: this.nombre}})
+    this.route.navigate(['/clase-qr'], {queryParams: { clase: this.claseSelected, nombre: this.nombre, asignaturaSelected: this.asignaturaSelected}})
   }
 }
