@@ -14,7 +14,7 @@ export interface Persona {
   nombre: string;
   apellido: string;
   asignatura: string[];
-  curso: CursoPersona[]; // Arreglo de objetos que contiene id del curso y si está presente
+  curso: CursoPersona[]; 
   esProfesor: boolean;
   nombreCompleto: string;
 }
@@ -66,7 +66,12 @@ export class AgregarPage {
           nombreCompleto: fullName  
         }).then(async () => {
           await this.presentAlert('Registro Exitoso', 'La persona ha sido registrada correctamente.');
-          this.router.navigate(['/login'])
+          if(this.persona.esProfesor){
+            this.router.navigate(['/homeProfe'])
+          }else{
+            this.router.navigate(['/login'])
+          }
+          
 
           this.resetForm();
         }).catch(async (error) => {

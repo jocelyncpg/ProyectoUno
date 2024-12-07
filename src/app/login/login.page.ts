@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +9,17 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  username: string;
+  username: string = '';
 
 
   constructor(
     private router: Router,
-    private aService:AuthService
+    private aService:AuthService,
+    private afAuth: AngularFireAuth
   ) {
-    this.username = localStorage.getItem('username') || '';
+    this.afAuth.authState.subscribe(user => {
+      this.username = user?.email ?? 'Alumno';
+    });
   }
 
   logout() {
